@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import uuid from 'uuid';
 
@@ -115,14 +116,14 @@ class App extends React.Component {
 					<Col md={{ span: 4, offset: 2 }}>
 						<Card>
 							<Card.Body>
-								<Card.Title>Connection Status</Card.Title>
-								{state.connectionStatus ? (
+								<Card.Title>Connection Status w/ Broker</Card.Title>
+								{!state.connectionStatus ? (
 									<Button variant="success" onClick={(e) => this.toggleConnection()}>
-										ACTIVE
+										Click to ACTIVATE
 									</Button>
 								) : (
 									<Button variant="danger" onClick={(e) => this.toggleConnection()}>
-										INACTIVE
+                  Click to DEACTIVATE
 									</Button>
 								)}
 							</Card.Body>
@@ -130,19 +131,21 @@ class App extends React.Component {
 						<Card>
 							<Card.Body>
 								<Card.Title>Pick a Topic</Card.Title>
-								<InputGroup>
-									<FormControl
-										type="text"
-										value={state.editTopic}
-										placeholder="Enter Topic"
-										onChange={(e) => this.handleTopicChange(e)}
-									/>
-									<InputGroup.Append>
-										<Button variant="dark" onClick={(e) => this.subscribeTopic(e)}>
-											Join
-										</Button>
-									</InputGroup.Append>
-								</InputGroup>
+								<Form onSubmit={(e) => this.subscribeTopic(e)}>
+									<InputGroup>
+										<FormControl
+											type="text"
+											value={state.editTopic}
+											placeholder="Enter Topic"
+											onChange={(e) => this.handleTopicChange(e)}
+										/>
+										<InputGroup.Append>
+											<Button variant="dark" type="submit">
+												Join
+											</Button>
+										</InputGroup.Append>
+									</InputGroup>
+								</Form>
 							</Card.Body>
 						</Card>
 						<Card>
@@ -167,25 +170,26 @@ class App extends React.Component {
 								</Container>
 							</Card.Body>
 							<Card.Footer>
-								<InputGroup>
-									<FormControl
-										type="text"
-										value={state.message}
-										placeholder="Enter a Message"
-										onChange={(e) => this.handleMessageChange(e)}
-										onSubmit={(e) => this.publishMessage(e)}
-										disabled={state.topic.length === 0 || !state.connectionStatus}
-									/>
-									<InputGroup.Append>
-										<Button
-											variant="dark"
-											onClick={(e) => this.publishMessage(e)}
+								<Form onSubmit={(e) => this.publishMessage(e)}>
+									<InputGroup>
+										<FormControl
+											type="text"
+											value={state.message}
+											placeholder="Enter a Message"
+											onChange={(e) => this.handleMessageChange(e)}
 											disabled={state.topic.length === 0 || !state.connectionStatus}
-										>
-											Send
-										</Button>
-									</InputGroup.Append>
-								</InputGroup>
+										/>
+										<InputGroup.Append>
+											<Button
+												variant="dark"
+												type="submit"
+												disabled={state.topic.length === 0 || !state.connectionStatus}
+											>
+												Send
+											</Button>
+										</InputGroup.Append>
+									</InputGroup>
+								</Form>
 							</Card.Footer>
 						</Card>
 					</Col>
