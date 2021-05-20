@@ -12,11 +12,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import uuid from 'uuid';
 
 const mqtt = require('mqtt');
+
 let client = null;
 const options = {
 	protocol: 'mqtts',
 	clientId: uuid()
 };
+
 const initState = {
 	connectionStatus: false,
 	messageQueue: [],
