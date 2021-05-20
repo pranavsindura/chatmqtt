@@ -31,22 +31,6 @@ class App extends React.Component {
 		...initState
 	};
 
-	handleTopicChange = (e) => {
-		e.preventDefault();
-		let editTopic = e.target.value;
-		this.setState({
-			editTopic
-		});
-	};
-
-	handleMessageChange = (e) => {
-		e.preventDefault();
-		let message = e.target.value;
-		this.setState({
-			message
-		});
-	};
-
 	subscribeTopic = (e) => {
 		e.preventDefault();
 		if (this.state.editTopic.length === 0) return;
@@ -99,6 +83,22 @@ class App extends React.Component {
 		}
 	};
 
+	handleTopicChange = (e) => {
+		e.preventDefault();
+		let editTopic = e.target.value;
+		this.setState({
+			editTopic
+		});
+	};
+
+	handleMessageChange = (e) => {
+		e.preventDefault();
+		let message = e.target.value;
+		this.setState({
+			message
+		});
+	};
+
 	componentDidUpdate = () => {};
 
 	componentDidMount = () => {};
@@ -113,6 +113,7 @@ class App extends React.Component {
 					</Col>
 				</Row>
 				<Row>
+					{/* Connection Status with Broker */}
 					<Col md={{ span: 4, offset: 2 }}>
 						<Card>
 							<Card.Body>
@@ -155,6 +156,7 @@ class App extends React.Component {
 							</Card.Body>
 						</Card>
 					</Col>
+					{/* Current Topic & Chat */}
 					<Col md={{ span: 4 }}>
 						<Card style={{ height: '100%' }}>
 							<Card.Body>
